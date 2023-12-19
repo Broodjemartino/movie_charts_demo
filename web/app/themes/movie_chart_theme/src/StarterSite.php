@@ -99,6 +99,8 @@ class StarterSite extends Site {
 		);
 
 		add_theme_support( 'menus' );
+
+        load_theme_textdomain('mcd-theme', get_template_directory() . '/assets/translations');
 	}
 
 	/**
