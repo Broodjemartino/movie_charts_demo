@@ -1,0 +1,178 @@
+// this normalize is based on:
+// https://piccalil.li/blog/a-modern-css-reset/
+// https://elad2412.github.io/the-new-css-reset/
+// http://necolas.github.io/normalize.css/
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+
+h1,
+h2,
+h3,
+h4,
+h5
+{
+  margin: 0 0 0.5em;
+}
+
+ul,
+ol,
+p,
+blockquote {
+  margin: 0 0 1em;
+}
+
+dl,
+dd {
+  margin: 0;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  appearance: none;
+}
+
+/* Remove list styles on ul, ol elements */
+ul,
+ol {
+  list-style: none;
+  padding: 0;
+}
+
+blockquote {
+  padding: 0;
+  border: none;
+}
+
+/* Set core body defaults */
+body {
+  margin: 0;
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+}
+
+// ensure links and buttons get correct cursor
+a,
+button {
+  color: inherit;
+  cursor: pointer;
+}
+
+button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+  border-radius: 0;
+  -webkit-appearance: none;
+  outline: none;
+}
+
+/* Make images easier to work with */
+figure,
+img,
+picture {
+  margin: 0;
+  width: 100%;
+  height: auto;
+  max-width: 100%;
+  display: block;
+}
+
+/* Removes spacing between cells in tables */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+th {
+  font-weight: inherit;
+}
+td,
+th {
+  padding: 0;
+  border: 0;
+}
+
+tr {
+  border: 0;
+}
+
+/* Revert the 'white-space' property for textarea elements on Safari */
+textarea {
+  white-space: revert;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Add the correct font weight in Chrome, Edge, and Safari */
+b,
+strong {
+  font-weight: bolder;
+}
+
+/* Correct the inheritance and scaling of font size in all browsers */
+code,
+kbd,
+samp,
+pre {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+/* Add the correct font size in all browsers */
+small {
+  font-size: 80%;
+}
+
+/* Prevent `sub` and `sup` elements from affecting the line height in all browsers */
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

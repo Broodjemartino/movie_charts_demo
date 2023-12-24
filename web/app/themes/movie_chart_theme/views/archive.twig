@@ -1,9 +1,27 @@
-{# This file demonstrates using most of the index.twig template and modifying 
-   just a small part. See `search.twig` for an example of another approach #}
+{% extends "base.twig" %}
 
-{% extends "index.twig" %}
+{% block header %}
+
+  {% include 'partial/genre-menu.twig' with {  } %}
+
+{% endblock %}
 
 {% block content %}
-  <h3>This is my archive</h3>
-  {{ parent() }}
+
+  <div class="content-wrapper">
+
+    <h1>Movie chart demo <span>top 50</span></h1>
+
+    <div>
+      {% include ['partial/movie-info.twig'] %}
+    </div>
+
+    <div>
+      {% for post in posts %}
+        {% include ['partial/tease.twig'] %}
+      {% endfor %}
+    </div>
+
+  </div>
+
 {% endblock %}
