@@ -111,6 +111,10 @@ class ApiConnetionTmdb
         $current_posts = [];
 
         foreach ($movies as $movie) {
+            echo '<pre>';
+            print_r($movie);
+            echo '</pre>';
+
             // First collect and sanitize all data
 
             // ******* NORMAL POST DATA *******
@@ -131,7 +135,7 @@ class ApiConnetionTmdb
 
             // Slug
             if (!empty($movie['title'])) {
-                $args['post_name'] = sanitize_title($movie['title']);
+                $args['post_title'] = sanitize_title($movie['title']);
             }
 
             // Content
@@ -153,13 +157,13 @@ class ApiConnetionTmdb
             // ******* METADATA ******
 
             $metadata_to_insert = [
-                $prefix.'original_title'    => '',
-                $prefix.'original_language' => '',
-                $prefix.'popularity'        => '',
-                $prefix.'release_date'      => '',
-                $prefix.'vote_average'      => '',
-                $prefix.'backdrop_path'     => '',
-                $prefix.'poster_path'       => '',
+                'original_title'    => '',
+                'original_language' => '',
+                'popularity'        => '',
+                'release_date'      => '',
+                'vote_average'      => '',
+                'backdrop_path'     => '',
+                'poster_path'       => '',
             ];
 
             // External ID
