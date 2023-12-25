@@ -1,0 +1,197 @@
+/*********************
+* GENERAL
+*********************/
+
+body {
+  font-size: 1rem;
+  font-family: $sans-serif;
+  color: $text-color;
+  position: relative;
+  background: linear-gradient(229deg, #4ca2cd, #67b26f);
+  background-size: 400% 400%;
+  -webkit-animation: GradientFade 20s ease infinite;
+  -moz-animation: GradientFade 20s ease infinite;
+  animation: GradientFade 20s ease infinite;
+}
+
+.bg-object-container {
+  top: 0;
+  right: 0;
+  left: 0;
+  position: absolute;
+  bottom: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+
+  &:before {
+    content: '';
+    display: block;
+    background: radial-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0));
+    width: 200vw;
+    height: 133vw;
+    border-radius: 50%;
+    overflow: hidden;
+    position: absolute;
+    right: 15vw;
+    bottom: -75vw;
+  }
+}
+
+.main {
+  position: relative;
+}
+
+@-webkit-keyframes GradientFade {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+@-moz-keyframes GradientFade {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+@keyframes GradientFade {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
+.glass-tile {
+  background: rgba(255,255,255,0.075);
+  border-radius: 0.5rem;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255,255,255,0.2);
+  padding: $element-padding;
+}
+
+/*********************
+* LINKS
+*********************/
+
+a {
+  color: $link-color;
+
+  &:hover,
+  &:focus {
+    color: darken($link-color, 9%);;
+  }
+}
+
+
+/*********************
+* HEADINGS
+*********************/
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5 {
+  text-rendering: optimizelegibility;
+  font-weight: 700;
+  line-height: 1.125;
+
+  a {
+    text-decoration: none;
+  }
+}
+
+h1, .h1 {
+  font-size: 2.5rem;
+}
+
+h2, .h2 {
+  font-size: 1.75rem;
+}
+
+h3, .h3 {
+  font-size: 1.125rem;
+}
+
+h4, .h4 {
+  font-size: 1rem;
+}
+
+h5, .h5 {
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/*********************
+* IMAGE CONTAINERS
+*********************/
+
+.img-container {
+  position: relative;
+  overflow: hidden;
+  display: block;
+
+  &:before {
+    content: '';
+    position: relative;
+    display: block;
+    padding-bottom: 56.25%;
+  }
+
+  img {
+    position: absolute;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+}
+
+.compat-object-fit {
+  background-size: cover;
+  background-position: center center;
+
+  img {
+    opacity: 0;
+  }
+}
+
+.wrapper {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/*********************
+* BREAKPOINTS
+*********************/
+
+@media screen and (min-width: 768px) {
+
+  .wrapper {
+    width: 42.5rem;
+  }
+
+  .glass-tile {
+    padding: 2*$element-padding;
+  }
+
+
+}
+
+@media screen and (min-width: 1024px) {
+  .wrapper {
+    width: 54rem;
+  }
+
+}
+
+@media screen and (min-width: 1240px) {
+  .wrapper {
+    width: 71.25rem;
+  }
+
+}

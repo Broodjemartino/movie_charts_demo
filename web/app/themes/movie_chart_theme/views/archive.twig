@@ -4,13 +4,15 @@
 
   {% include 'partial/genre-menu.twig' with {  } %}
 
+  <div class="wrapper">
+    <h1 class="archive-heading">Movie chart demo<span>top 50</span></h1>
+  </div>
+
 {% endblock %}
 
 {% block content %}
 
   <div class="content-wrapper">
-
-    <h1>Movie chart demo <span>top 50</span></h1>
 
     <div>
       {% include ['partial/movie-info.twig'] %}

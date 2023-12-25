@@ -9,6 +9,8 @@
 {% endblock %}
 
 	<body class="{{body_class}}" data-template="base.twig">
+		<div class="bg-object-container"></div>
+		<div class="main">
 
 		{{ function('wp_body_open') }}
 
@@ -30,7 +32,7 @@
 		</header>
 
 		<section id="content" role="main" class="content-wrapper">
-			{% if title %}<h1>{{title}}</h1>{% endif %}
+
 			<div class="wrapper">
 				{% block content %}
 					Sorry, no content
@@ -47,5 +49,6 @@
 
 		{{ function('wp_footer') }}
 
+		</div>
 	</body>
 </html>
