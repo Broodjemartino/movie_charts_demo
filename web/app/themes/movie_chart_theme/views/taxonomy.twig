@@ -1,0 +1,26 @@
+{% extends "base.twig" %}
+
+{% block header %}
+
+  <div class="wrapper">
+    <h1 class="archive-heading">Movie chart demo</h1>
+    <span class="subtitle">{{ term_page.name }}</span>
+  </div>
+
+{% endblock %}
+
+{% block content %}
+
+  <div class="content-wrapper">
+  <a class="back-button tax-back-btn" href="{{ post_type_archive_link }}">< back to Top 50</a>
+
+    <div class="teaser-grid">
+    {% for post in posts %}
+      {% include ['partial/tease.twig'] %}
+    {% endfor %}
+    </div>
+
+    {% include 'partial/pagination.twig' with { pagination: posts.pagination({show_all: false, mid_size: 3, end_size: 2}) } %}
+  </div>
+
+{% endblock %}

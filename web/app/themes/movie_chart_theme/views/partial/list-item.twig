@@ -1,0 +1,14 @@
+<div id="movie-listitem{{ post.id }}" class="glass-tile movie-list-item" data-id="{{ post.id }}">
+
+	<h3>{{ rank }}. {{post.title}} <span>({{ post.meta('_mcd_movie_original_language') }})</span></h3>
+	<span class="byline">{{ post.meta('_mcd_movie_release_date')|date('Y') }}</span>
+
+	<ul class="movie-genre-list">
+		{% for genre in post.terms({
+			taxonomy: 'genre_cat',
+		}) %}
+			<li><a href="{{ genre.link }}">{{ genre.name }}</a></li>
+		{% endfor %}
+	</ul>
+
+</div>

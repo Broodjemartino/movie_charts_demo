@@ -1,0 +1,43 @@
+/*********************
+* GRID
+*********************/
+
+.teaser-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr)); // 4 column grid
+  column-gap: $grid-margin;
+
+  > div {
+    grid-column-end: span 4;
+    margin-bottom: $grid-margin;
+  }
+}
+
+/*********************
+* BREAKPOINTS
+*********************/
+
+@media screen and (min-width: 768px) {
+
+  .teaser-grid {
+    grid-template-columns: repeat(8, minmax(0, 1fr)); // 8 column grid
+
+    > div {
+      grid-column-end: span 4;
+    }
+  }
+}
+
+
+
+@media screen and (min-width: 1024px) {
+
+  .teaser-grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr)); // 12 column grid
+
+    > div {
+      grid-column-end: span 4;
+    }
+  }
+
+}
