@@ -2,25 +2,35 @@
 
 {% block header %}
 
-  {% include 'partial/genre-menu.twig' with {  } %}
-
   <div class="wrapper">
-    <h1 class="archive-heading">Movie chart demo<span>top 50</span></h1>
+    <h1 class="archive-heading">Movie chart demo</h1>
+    <span class="subtitle">Top 50</span>
   </div>
 
 {% endblock %}
 
 {% block content %}
 
-  <div class="content-wrapper">
+  <script>
+    const filterdata = {{ filterdata }};
+  </script>
+  {% include 'partial/genre-menu.twig' with {'genre_terms':genre_terms } %}
 
-    <div>
-      {% include ['partial/movie-info.twig'] %}
+  <input id="live-search" class="live-search-input" oninput="liveSearch(this)" placeholder="Search">
+
+  <div class="split-interface">
+
+    <div class="movie-info-container">
+        <span class="close-info-container">×</span>
+
+        {% for post in posts %}
+         {% include ['partial/movie-info.twig'] with {'index':loop.index} %}
+        {% endfor %}
     </div>
 
-    <div>
+    <div class="movie-list-container">
       {% for post in posts %}
-        {% include ['partial/tease.twig'] %}
+        {% include ['partial/list-item.twig'] with {'rank':loop.index} %}
       {% endfor %}
     </div>
 

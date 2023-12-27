@@ -1,9 +1,23 @@
-<article class="tease tease-{{post.type}}" id="tease-{{post.id}}">
-	{% block content %}
-		<h2 class="h2"><a href="{{post.link}}">{{post.title}}</a></h2>
-		<p>{{ post.excerpt }}</p>
-		{% if post.thumbnail %}
-			<img src="{{post.thumbnail.src}}" />
+<div class="glass-tile movie-tease">
+
+	<div class="img-container poster-container">
+		<span class="voting-mark">{{ post.meta('_mcd_movie_vote_average')|number_format(1, '.') }}</span>
+		{% if post.meta('_mcd_movie_poster_path') %}
+			<img alt="{{post.title}}" src="{{post.meta('_mcd_movie_poster_path')}}" />
 		{% endif %}
-	{% endblock %}
-</article>
+	</div>
+
+	<div>
+		<h3>{{post.title}} <span>({{ post.meta('_mcd_movie_original_language') }})</span></h3>
+		<span class="byline">{{ post.meta('_mcd_movie_release_date')|date('Y') }}</span>
+
+		<ul class="movie-genre-list">
+			{% for genre in post.terms({
+				taxonomy: 'genre_cat',
+			}) %}
+				<li><a href="{{ genre.link }}">{{ genre.name }}</a></li>
+			{% endfor %}
+		</ul>
+
+	</div>
+</div>

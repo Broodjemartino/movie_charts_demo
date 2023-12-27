@@ -1,4 +1,14 @@
-<button id="toggle-genre-menu">Genres</button>
-<div>
+<button id="toggle-genre-menu" class="toggle-genre-button">Genres</button>
+<div class="genre-menu">
+    <div class="wrapper">
 
+        <h3>Genres</h3>
+
+        <ul class="genre-menu-list">
+        {% for genre in genre_terms %}
+            <li><a href="{{ genre.link }}">{{ genre.name }}</a></li>
+        {% endfor %}
+        </ul>
+
+    </div>
 </div>

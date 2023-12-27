@@ -14,27 +14,31 @@
  * @since   Timber 0.2
  */
 
-$templates = array( 'archive.twig', 'base.twig' );
+$templates = array('archive.twig', 'base.twig');
 
 $context = Timber::context();
 
-$context['title'] = 'Archive';
-if ( is_day() ) {
-	$context['title'] = 'Archive: ' . get_the_date( 'D M Y' );
-} elseif ( is_month() ) {
-	$context['title'] = 'Archive: ' . get_the_date( 'M Y' );
-} elseif ( is_year() ) {
-	$context['title'] = 'Archive: ' . get_the_date( 'Y' );
-} elseif ( is_tag() ) {
-	$context['title'] = single_tag_title( '', false );
-} elseif ( is_category() ) {
-	$context['title'] = single_cat_title( '', false );
-	array_unshift( $templates, 'archive-' . get_query_var( 'cat' ) . '.twig' );
-} elseif ( is_post_type_archive() ) {
-	$context['title'] = post_type_archive_title( '', false );
-	array_unshift( $templates, 'archive-' . get_post_type() . '.twig' );
+// Get all posts
+if (is_post_type_archive('movie_type')) {
+    $context['posts'] = Timber::get_posts([
+        'post_type' => 'movie_type',
+        'posts_per_page' => -1,
+        'paged' => 1,
+    ]);
 }
 
-$context['posts'] = Timber::get_posts();
+// Make json object for client side filtering
+$filter_data = [];
+foreach ($context['posts'] as $movie_post) {
+    $filter_data[$movie_post->ID] = $movie_post->post_title;
+}
 
-Timber::render( $templates, $context );
+$context['filterdata'] = json_encode($filter_data);
+
+// Get all terms of genre_cat for the genre menu
+$context['genre_terms'] = Timber::get_terms([
+    'taxonomy' => 'genre_cat'
+]);
+
+
+Timber::render($templates, $context);

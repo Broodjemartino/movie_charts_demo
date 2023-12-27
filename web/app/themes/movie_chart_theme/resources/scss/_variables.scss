@@ -11,11 +11,12 @@ $white: #FFF;
 
 $gray: #CCC;
 $gray-light: #F7F7F7;
-$gray-dark: #999;
+$gray-dark: #173443;
 
-$blue: #81CAD6;
+$blue: #0f627d;
+$light-green: #b9f0e4;
 
-$text-color: $white;
+$text-color: $gray-dark;
 $link-color: $blue;
 
 
@@ -23,4 +24,5 @@ $link-color: $blue;
 * MARGINS / PADDINGS
 *********************/
 
-$element-padding: 1.5rem;
+$element-padding: 1rem;
+$grid-margin: 1.5rem;

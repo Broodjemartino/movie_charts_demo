@@ -10,12 +10,13 @@
   font-family: $sans-serif;
   font-size: 1rem;
   font-weight: 400;
-  line-height: 1;
+  height: 1.5rem;
+  line-height: 1.3rem;
   text-decoration: none;
-  margin: 0;
-  padding: 0.5rem 1rem;
+  padding: 0.125rem 0.5rem;
   border: 0;
-  border-radius: 2rem;
+  border-radius: 5px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
   outline: none;
   cursor: pointer;
   appearance: none;
@@ -24,15 +25,15 @@
   transition: .3s ease-in-out;
 }
 
-/*********************
-* PRIMARY
-*********************/
-
-.button,
-.primary-btn {
+.back-button {
   @extend %btn;
+  background-color: $white;
+  color: $blue;
+  opacity: 0.7;
+  transition: opacity 0.15s ease-in-out;
 
   &:hover,
   &:focus {
+    opacity: 0.85;
   }
 }
