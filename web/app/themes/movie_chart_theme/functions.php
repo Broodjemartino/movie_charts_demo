@@ -25,3 +25,8 @@ if (is_admin()) {
     require_once __DIR__ . '/src/AdminTools.php';
     new AdminTools();
 }
+
+// Max inlog attempts
+require_once __DIR__ . '/src/LimitLoginAttempts.php';
+new LimitLoginAttempts();
+
