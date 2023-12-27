@@ -20,6 +20,10 @@ class StarterSite extends Site
         add_filter('timber/twig', array($this, 'add_to_twig'));
         add_filter('timber/twig/environment/options', [$this, 'update_twig_environment_options']);
 
+        add_action('login_init', array($this,'no_weak_password_header'));
+        add_action('admin_head', array($this,'no_weak_password_header'));
+
+
         parent::__construct();
     }
 
@@ -361,5 +365,14 @@ class StarterSite extends Site
     {
         remove_action('wp_head', 'rest_output_link_wp_head', 10);
         remove_action('wp_head', 'wp_oembed_add_discovery_links', 10);
+    }
+
+    /*
+     * Simply remove checkbox that allows weak passwords. This is a client side solution but will work for your normal users.
+     */
+    function no_weak_password_header()
+    {
+        echo"<style>.pw-weak{display:none!important}</style>";
+        echo'<script>document.getElementById("pw-checkbox").disabled = true;</script>';
     }
 }
