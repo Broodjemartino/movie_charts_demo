@@ -1,0 +1,24 @@
+<div id="movie-info{{ post.id }}" class="glass-tile movie-info {% if index != 1 %}hidden{% endif %}" data-id="{{ post.id }}">
+    <div class="img-container poster-container">
+        <span class="voting-mark">{{ post.meta('_mcd_movie_vote_average')|number_format(1, '.') }}</span>
+        {% if post.meta('_mcd_movie_poster_path') %}
+            <img alt="{{post.title}}" src="{{post.meta('_mcd_movie_poster_path')}}" />
+        {% endif %}
+    </div>
+
+    <div>
+        <h3>{{post.title}} <span>({{ post.meta('_mcd_movie_original_language') }})</span></h3>
+        <span class="byline">{{ post.meta('_mcd_movie_release_date')|date('Y') }}</span>
+
+        {{ post.content }}
+
+        <ul class="movie-genre-list">
+            {% for genre in post.terms({
+                taxonomy: 'genre_cat',
+            }) %}
+                <li><a href="{{ genre.link }}">{{ genre.name }}</a></li>
+            {% endfor %}
+        </ul>
+
+    </div>
+</div>

@@ -14,31 +14,23 @@
  * @since   Timber 0.2
  */
 
-$templates = array('archive.twig', 'base.twig');
+$templates = array( 'taxonomy.twig', 'base.twig' );
 
 $context = Timber::context();
 
-// Get all posts
-if (is_post_type_archive('movie_type')) {
-    $context['posts'] = Timber::get_posts([
-        'post_type' => 'movie_type',
-        'posts_per_page' => -1,
-        'paged' => 1,
-    ]);
-}
+$context['posts'] = Timber::get_posts();
+$context['term_page'] = Timber::get_term();
 
-// Make json object for client side filtering
-$filter_data = [];
-foreach ($context['posts'] as $movie_post) {
-    $filter_data[$movie_post->ID] = $movie_post->post_title;
-}
-
-$context['filterdata'] = json_encode($filter_data);
+// Back tpo all link
+$context['post_type_archive_link'] = get_post_type_archive_link('movie_type');
 
 // Get all terms of genre_cat for the genre menu
 $context['genre_terms'] = Timber::get_terms([
     'taxonomy' => 'genre_cat'
 ]);
 
+$context['genre_terms'] = Timber::get_terms([
+    'taxonomy' => 'genre_cat'
+]);
 
-Timber::render($templates, $context);
+Timber::render( $templates, $context );

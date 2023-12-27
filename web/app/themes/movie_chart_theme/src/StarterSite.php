@@ -7,17 +7,18 @@ use Timber\Site;
  */
 class StarterSite extends Site
 {
-
     public function __construct()
     {
+        add_action('after_setup_theme', array($this, 'theme_supports'));
+        add_action('init', array($this, 'register_post_types'));
+        add_action('init', array($this, 'register_taxonomies'));
+        add_action('init', array($this, 'mcd_cleanup'));
 
-        add_action('after_setup_theme', array( $this, 'theme_supports' ));
-        add_action('init', array( $this, 'register_post_types' ));
-        add_action('init', array( $this, 'register_taxonomies' ));
+        add_action('wp_enqueue_scripts', array($this, 'scripts_and_styles'), 999);
 
-        add_filter('timber/context', array( $this, 'add_to_context' ));
-        add_filter('timber/twig', array( $this, 'add_to_twig' ));
-        add_filter('timber/twig/environment/options', [ $this, 'update_twig_environment_options' ]);
+        add_filter('timber/context', array($this, 'add_to_context'));
+        add_filter('timber/twig', array($this, 'add_to_twig'));
+        add_filter('timber/twig/environment/options', [$this, 'update_twig_environment_options']);
 
         parent::__construct();
     }
@@ -29,7 +30,7 @@ class StarterSite extends Site
     {
         // Movie Type
         $labels = array(
-            'name'                  => _x('Movies', 'Post Type General Name', 'mcd_theme'),
+            'name'                  => _x('Timbers', 'Post Type General Name', 'mcd_theme'),
             'singular_name'         => _x('Movie', 'Post Type Singular Name', 'mcd_theme'),
             'menu_name'             => __('Movies', 'mcd_theme'),
             'name_admin_bar'        => __('Movie', 'mcd_theme'),
@@ -235,5 +236,130 @@ class StarterSite extends Site
         // $options['autoescape'] = true;
 
         return $options;
+    }
+
+
+    /**
+     * Enqueue scripts and styles
+     */
+    public function scripts_and_styles()
+    {
+
+        // Add main stylesheet
+        wp_register_style('main-stylesheet', get_stylesheet_directory_uri() . '/dist/style.css', array(), '', 'all');
+        wp_enqueue_style('main-stylesheet');
+
+        // Add main javascript fil
+        wp_register_script('main-js', get_stylesheet_directory_uri() . '/resources/js/scripts.js', array(), '', true);
+        wp_enqueue_script('main-js');
+
+        // Add google font
+            wp_register_style('googleFonts', 'https://fonts.googleapis.com/css2?family=Mulish:wght@400;700&display=swap');
+            wp_enqueue_style('googleFonts');
+    }
+
+    /**
+     * Cleanup wordpress files and unused functions
+     */
+    function mcd_cleanup()
+    {
+
+        // Remove category feeds
+        remove_action('wp_head', 'feed_links_extra', 3);
+
+        // Remove post and comment feeds
+        remove_action('wp_head', 'feed_links', 2);
+
+        // Remove editURI link
+        remove_action('wp_head', 'rsd_link');
+
+        // Remove windows live writer
+        remove_action('wp_head', 'wlwmanifest_link');
+
+        // Remove index link
+        remove_action('wp_head', 'index_rel_link');
+
+        // Remove previous link
+        remove_action('wp_head', 'parent_post_rel_link', 10, 0);
+
+        // Remove start link
+        remove_action('wp_head', 'start_post_rel_link', 10, 0);
+
+        // Remove links for adjacent posts
+        remove_action('wp_head', 'adjacent_posts_rel_link_wp_head', 10, 0);
+
+        // Remove shortlink
+        remove_action('wp_head', 'wp_shortlink_wp_head', 10, 0);
+
+        // Remove WP version
+        remove_action('wp_head', 'wp_generator');
+
+
+        // Disable oEmbed Discovery Links
+        remove_action('wp_head', 'wp_oembed_add_discovery_links', 10);
+
+        // All actions related to emojis
+        remove_action('admin_print_styles', 'print_emoji_styles');
+        remove_action('wp_head', 'print_emoji_detection_script', 7);
+        remove_action('admin_print_scripts', 'print_emoji_detection_script');
+        remove_action('wp_print_styles', 'print_emoji_styles');
+        remove_filter('wp_mail', 'wp_staticize_emoji_for_email');
+        remove_filter('the_content_feed', 'wp_staticize_emoji');
+        remove_filter('comment_text_rss', 'wp_staticize_emoji');
+
+        // Filter classes added to the body
+        add_filter('body_class', array($this, 'cleanup_body_class'), 10, 2);
+
+        // Remove wp style on frontend
+        add_action('wp_enqueue_scripts', array($this, 'remove_wp_block_library_css'), 100);
+
+        // Remove REST API output in header
+        add_action('after_setup_theme', array($this, 'remove_api'));
+
+        // Remove WP version from css and scripts
+        add_filter('style_loader_src', array($this, 'remove_version_from_script'), 9999);
+        add_filter('script_loader_src', array($this, 'remove_version_from_script'), 9999);
+    }
+
+    public function remove_version_from_script($src)
+    {
+        if (strpos($src, 'ver=')) {
+            $src = remove_query_arg('ver', $src);
+        }
+        return $src;
+    }
+
+    public function cleanup_body_class($wp_classes, $extra_classes)
+    {
+
+        // List of the only WP generated classes allowed
+        $whitelist = array('logged-in', 'admin-bar');
+        //$whitelist = array('home', 'blog', 'archive', 'single', 'category', 'tag', 'error404', 'logged-in', 'admin-bar');
+
+        // List of the only WP generated classes that are not allowed
+        #$blacklist = array( 'home', 'blog', 'archive', 'single', 'category', 'tag', 'error404', 'logged-in', 'admin-bar' );
+
+        // Filter the body classes
+        // Whitelist result: (comment if you want to blacklist classes)
+        $wp_classes = array_intersect($wp_classes, $whitelist);
+        // Blacklist result: (uncomment if you want to blacklist classes)
+        # $wp_classes = array_diff( $wp_classes, $blacklist );
+
+        // Add the extra classes back untouched
+        return array_merge($wp_classes, (array)$extra_classes);
+    }
+
+    public function remove_wp_block_library_css()
+    {
+        wp_dequeue_style('wp-block-library');
+        wp_dequeue_style('wp-block-library-theme');
+        wp_dequeue_style('global-styles');
+        wp_dequeue_style('classic-theme-styles');
+    }
+
+    public function remove_api()
+    {
+        remove_action('wp_head', 'rest_output_link_wp_head', 10);
+        remove_action('wp_head', 'wp_oembed_add_discovery_links', 10);
     }
 }

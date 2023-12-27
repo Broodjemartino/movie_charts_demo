@@ -1,0 +1,15 @@
+/*********************
+* PAGINATION
+*********************/
+.pagination {
+  text-align: center;
+
+  .disabled {
+    display: none;
+  }
+
+  li {
+    display: inline-block;
+  }
+
+}

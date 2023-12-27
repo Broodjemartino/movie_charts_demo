@@ -1,3 +1,5 @@
 /composer.lock
 /vendor/
 /wordpress/
+/dist/style.css
+/dist/style.css.map
