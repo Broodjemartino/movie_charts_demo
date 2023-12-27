@@ -138,7 +138,7 @@ function liveSearch(input) {
             }
         } else {
             //reset filter
-            const items = document.querySelectorAll('.movie-list-item, movie-info');
+            const items = document.querySelectorAll('.movie-list-item, .movie-info');
 
             items.forEach((el) => {
 

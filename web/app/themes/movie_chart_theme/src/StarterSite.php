@@ -254,7 +254,7 @@ class StarterSite extends Site
         wp_enqueue_style('main-stylesheet');
 
         // Add main javascript fil
-        wp_register_script('main-js', get_stylesheet_directory_uri() . '/resources/js/scripts.js', array(), '', true);
+        wp_register_script('main-js', get_stylesheet_directory_uri() . '/dist/scripts.min.js', array(), '', true);
         wp_enqueue_script('main-js');
 
         // Add google font
