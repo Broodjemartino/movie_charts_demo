@@ -30,7 +30,7 @@ class StarterSite extends Site
     {
         // Movie Type
         $labels = array(
-            'name'                  => _x('Timbers', 'Post Type General Name', 'mcd_theme'),
+            'name'                  => _x('Movies', 'Post Type General Name', 'mcd_theme'),
             'singular_name'         => _x('Movie', 'Post Type Singular Name', 'mcd_theme'),
             'menu_name'             => __('Movies', 'mcd_theme'),
             'name_admin_bar'        => __('Movie', 'mcd_theme'),
